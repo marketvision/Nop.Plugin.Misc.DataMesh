@@ -1,4 +1,4 @@
-﻿@model Nop.Plugin.Misc.DataMesh.Models.ConfigurationModel
+﻿@model Nop.Plugin.Misc.DataMesh.Models.DataStreamConfigurationModel
 @using Nop.Plugin.Misc.DataMesh
 @{
     Layout = "_ConfigurePlugin";
@@ -9,57 +9,13 @@
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>
-                    To configure authentication with OAuth2 follow these steps:<br />
-                    <br />
-                    1. Log into your <a href="@(Model.Authority)/Admin" target="_blank">Admin panel</a> to create a client.<br />
-                    4. Enter <em>@($"{webHelper.GetStoreLocation().TrimEnd('/')}{Default.CallbackPath}")</em> into Redirect URI field.<br />
-                    5. Copy your Client ID, Client secret and Scopes below.<br />
-                    6. Save.
-                </p>
                 <div class="form-group">
                     <div class="col-md-3">
-                        <nop-label asp-for="ClientId" />
+                        <nop-label asp-for="RabbitMqEndpoint" />
                     </div>
                     <div class="col-md-9">
-                        <nop-editor asp-for="ClientId" />
-                        <span asp-validation-for="ClientId"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="ClientSecret" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="ClientSecret" />
-                        <span asp-validation-for="ClientSecret"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="Authority" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="Authority" />
-                        <span asp-validation-for="Authority"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="Scopes" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="Scopes" />
-                        <span asp-validation-for="Scopes"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="AdministratorsRoles" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="AdministratorsRoles" />
-                        <span asp-validation-for="AdministratorsRoles"></span>
+                        <nop-editor asp-for="RabbitMqEndpoint" />
+                        <span asp-validation-for="RabbitMqEndpoint"></span>
                     </div>
                 </div>
                 <div class="form-group">
