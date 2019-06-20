@@ -1,0 +1,8 @@
+﻿@{
+    Html.AddCssFileParts("~/Plugins/Misc.DataMesh/Content/styles.css");
+}
+<div class="oauth2-login-block">
+    <div class="buttons">
+        <a asp-controller="OAuth2Authentication" asp-action="Login" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" class="oauth2-btn"></a>
+    </div>
+</div>

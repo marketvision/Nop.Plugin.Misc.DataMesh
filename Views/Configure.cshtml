@@ -1,0 +1,73 @@
+﻿@model Nop.Plugin.Misc.DataMesh.Models.ConfigurationModel
+@using Nop.Plugin.Misc.DataMesh
+@{
+    Layout = "_ConfigurePlugin";
+}
+@inject Nop.Core.IWebHelper webHelper
+
+<form asp-controller="OAuth2Authentication" asp-action="Configure" method="post">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>
+                    To configure authentication with OAuth2 follow these steps:<br />
+                    <br />
+                    1. Log into your <a href="@(Model.Authority)/Admin" target="_blank">Admin panel</a> to create a client.<br />
+                    4. Enter <em>@($"{webHelper.GetStoreLocation().TrimEnd('/')}{OAuth2AuthenticationDefaults.CallbackPath}")</em> into Redirect URI field.<br />
+                    5. Copy your Client ID, Client secret and Scopes below.<br />
+                    6. Save.
+                </p>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="ClientId" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ClientId" />
+                        <span asp-validation-for="ClientId"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="ClientSecret" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ClientSecret" />
+                        <span asp-validation-for="ClientSecret"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Authority" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Authority" />
+                        <span asp-validation-for="Authority"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Scopes" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Scopes" />
+                        <span asp-validation-for="Scopes"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="AdministratorsRoles" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="AdministratorsRoles" />
+                        <span asp-validation-for="AdministratorsRoles"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "Data Mesh",
+  "SystemName": "Misc.DataMesh",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Elders team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.DataMesh.dll",
+  "Description": "This plugin enables Data Mesh fancy technology"
+}
