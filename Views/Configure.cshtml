@@ -5,7 +5,7 @@
 }
 @inject Nop.Core.IWebHelper webHelper
 
-<form asp-controller="OAuth2Authentication" asp-action="Configure" method="post">
+<form asp-controller="DataMesh" asp-action="Configure" method="post">
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -13,7 +13,7 @@
                     To configure authentication with OAuth2 follow these steps:<br />
                     <br />
                     1. Log into your <a href="@(Model.Authority)/Admin" target="_blank">Admin panel</a> to create a client.<br />
-                    4. Enter <em>@($"{webHelper.GetStoreLocation().TrimEnd('/')}{OAuth2AuthenticationDefaults.CallbackPath}")</em> into Redirect URI field.<br />
+                    4. Enter <em>@($"{webHelper.GetStoreLocation().TrimEnd('/')}{Default.CallbackPath}")</em> into Redirect URI field.<br />
                     5. Copy your Client ID, Client secret and Scopes below.<br />
                     6. Save.
                 </p>

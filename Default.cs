@@ -38,6 +38,6 @@
         /// <summary>
         /// Name of the view component
         /// </summary>
-        public const string ViewComponentName = "OAuth2Authentication";
+        public const string ViewComponentName = "DataMesh";
     }
 }

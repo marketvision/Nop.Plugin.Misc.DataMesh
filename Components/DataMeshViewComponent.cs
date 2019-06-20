@@ -6,8 +6,8 @@ namespace Nop.Plugin.Misc.DataMesh.Components
     /// <summary>
     /// Represents a view component to render 'Sign In with oAuth2.0' button on the login page
     /// </summary>
-    [ViewComponent(Name = OAuth2AuthenticationDefaults.ViewComponentName)]
-    public class OAuth2AuthenticationViewComponent : NopViewComponent
+    [ViewComponent(Name = Default.ViewComponentName)]
+    public class DataMeshViewComponent : NopViewComponent
     {
         /// <summary>
         /// Invoke the external authentication view component

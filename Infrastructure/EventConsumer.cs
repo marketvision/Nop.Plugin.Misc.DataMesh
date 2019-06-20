@@ -66,7 +66,7 @@ namespace Nop.Plugin.Misc.DataMesh.Infrastructure
                 return;
 
             //handle event only for this authentication method
-            if (!eventMessage.AuthenticationParameters.ProviderSystemName.Equals(OAuth2AuthenticationDefaults.SystemName))
+            if (!eventMessage.AuthenticationParameters.ProviderSystemName.Equals(Default.SystemName))
                 return;
 
             HandleCustomerRoles(eventMessage);
@@ -77,7 +77,7 @@ namespace Nop.Plugin.Misc.DataMesh.Infrastructure
                 _genericAttributeService.SaveAttribute(eventMessage.Customer, NopCustomerDefaults.FirstNameAttribute, firstName);
 
             //upload avatar
-            var avatarUrl = eventMessage.AuthenticationParameters.Claims.FirstOrDefault(claim => claim.Type == OAuth2AuthenticationDefaults.AvatarClaimType)?.Value;
+            var avatarUrl = eventMessage.AuthenticationParameters.Claims.FirstOrDefault(claim => claim.Type == Default.AvatarClaimType)?.Value;
             if (string.IsNullOrEmpty(avatarUrl))
                 return;
 

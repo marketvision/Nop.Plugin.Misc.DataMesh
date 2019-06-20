@@ -19,7 +19,7 @@ using Nop.Web.Framework.Mvc.ModelBinding;
 
 namespace Nop.Plugin.Misc.DataMesh.Controllers
 {
-    public class OAuth2AuthenticationController : BasePluginController
+    public class DataMeshController : BasePluginController
     {
         #region Fields
 
@@ -34,7 +34,7 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
 
         #region Ctor
 
-        public OAuth2AuthenticationController(IExternalAuthenticationService externalAuthenticationService,
+        public DataMeshController(IExternalAuthenticationService externalAuthenticationService,
             ILocalizationService localizationService,
             IOptionsMonitorCache<OAuthOptions> optionsCache,
             ISettingService settingService,
@@ -87,7 +87,7 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
             _oAuth2AuthenticationSettings.AdministratorsRoles = model.AdministratorsRoles;
             _settingService.SaveSetting(_oAuth2AuthenticationSettings);
 
-            _optionsCache.TryRemove(OAuth2AuthenticationDefaults.AuthenticationScheme);
+            _optionsCache.TryRemove(Default.AuthenticationScheme);
 
             //SuccessNotification(_localizationService.GetResource("Admin.Plugins.Saved"));
 
@@ -103,10 +103,10 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
 
             var authenticationProperties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action("LoginCallback", "OAuth2Authentication", new { returnUrl = returnUrl })
+                RedirectUri = Url.Action("LoginCallback", "DataMesh", new { returnUrl = returnUrl })
             };
 
-            return Challenge(authenticationProperties, OAuth2AuthenticationDefaults.AuthenticationScheme);
+            return Challenge(authenticationProperties, Default.AuthenticationScheme);
         }
 
         [HttpPost]
@@ -114,15 +114,15 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
 
         public async Task<IActionResult> LoginCallback(string returnUrl)
         {
-            var authenticateResult = await this.HttpContext.AuthenticateAsync(OAuth2AuthenticationDefaults.AuthenticationScheme);
+            var authenticateResult = await this.HttpContext.AuthenticateAsync(Default.AuthenticationScheme);
             if (!authenticateResult.Succeeded || !authenticateResult.Principal.Claims.Any())
                 return RedirectToRoute("Login");
 
             var authenticationParameters = new ExternalAuthenticationParameters
             {
-                ProviderSystemName = OAuth2AuthenticationDefaults.SystemName,
+                ProviderSystemName = Default.SystemName,
                 AccessToken = await this.HttpContext
-                    .GetTokenAsync(OAuth2AuthenticationDefaults.AuthenticationScheme, OAuth2AuthenticationDefaults.AccessTokenName),
+                    .GetTokenAsync(Default.AuthenticationScheme, Default.AccessTokenName),
                 Email = authenticateResult.Principal.FindFirst(claim => claim.Type == ClaimTypes.Email)?.Value,
                 ExternalIdentifier = authenticateResult.Principal.FindFirst(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value,
                 ExternalDisplayIdentifier = authenticateResult.Principal.FindFirst(claim => claim.Type == ClaimTypes.Name)?.Value,
@@ -135,7 +135,7 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
         bool IsNotConfigured()
         {
             return
-                _authenticationPluginManager.IsPluginActive(OAuth2AuthenticationDefaults.SystemName) == false ||
+                _authenticationPluginManager.IsPluginActive(Default.SystemName) == false ||
                 string.IsNullOrEmpty(_oAuth2AuthenticationSettings.ClientId) ||
                 string.IsNullOrEmpty(_oAuth2AuthenticationSettings.ClientSecret) ||
                 string.IsNullOrEmpty(_oAuth2AuthenticationSettings.Authority) ||
