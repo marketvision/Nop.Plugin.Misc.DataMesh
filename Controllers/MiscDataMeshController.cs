@@ -7,6 +7,9 @@ using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugin.Misc.DataMesh.Controllers
 {
+    [AuthorizeAdmin]
+    [Area(AreaNames.Admin)]
+    [AdminAntiForgery]
     public class MiscDataMeshController : BasePluginController
     {
         private readonly ISettingService _settingService;
@@ -19,8 +22,6 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
             _dataStreamSettings = oAuth2AuthenticationSettings;
         }
 
-        [AuthorizeAdmin]
-        [Area(AreaNames.Admin)]
         public IActionResult Configure()
         {
             var model = new DataStreamConfigurationModel
@@ -31,10 +32,7 @@ namespace Nop.Plugin.Misc.DataMesh.Controllers
             return View("~/Plugins/Misc.DataMesh/Views/Configure.cshtml", model);
         }
 
-        [HttpPost]
-        [AuthorizeAdmin]
-        [AdminAntiForgery]
-        [Area(AreaNames.Admin)]
+        [HttpPost, ActionName("Configure")]
         public IActionResult Configure(DataStreamConfigurationModel model)
         {
             if (!ModelState.IsValid)
