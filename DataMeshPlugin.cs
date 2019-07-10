@@ -1,40 +1,44 @@
 ﻿using System;
 using Nop.Core;
 using Nop.Services.Common;
+using Nop.Services.Configuration;
 using Nop.Services.Plugins;
 
 namespace Nop.Plugin.Misc.DataMesh
 {
-    public class DataMeshPlugin : IMiscPlugin
+    public class DataMeshPlugin : BasePlugin, IMiscPlugin
     {
         private readonly IWebHelper _webHelper;
-
-        public PluginDescriptor PluginDescriptor { get; set; }
+        private readonly ISettingService _settingService;
 
         public DataMeshPlugin(
-            IWebHelper webHelper)
+            IWebHelper webHelper,
+            ISettingService settingService)
         {
             _webHelper = webHelper;
+            _settingService = settingService;
         }
 
-        public string GetConfigurationPageUrl()
+        public override string GetConfigurationPageUrl()
         {
             return $"{_webHelper.GetStoreLocation()}Admin/MiscDataMesh/Configure";
         }
 
-        public void Install()
+        public override void Install()
         {
-
+            _settingService.SaveSetting(new Settings());
+            base.Install();
         }
 
-        public void PreparePluginToUninstall()
+        public override void PreparePluginToUninstall()
         {
-
+            base.PreparePluginToUninstall();
         }
 
-        public void Uninstall()
+        public override void Uninstall()
         {
-
+            _settingService.DeleteSetting<Settings>();
+            base.Uninstall();
         }
     }
 }
