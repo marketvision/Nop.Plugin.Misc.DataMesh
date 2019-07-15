@@ -9,7 +9,7 @@ namespace Nop.Plugin.Misc.DataMesh.Infrastructure
     {
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder, NopConfig config)
         {
-            //builder.RegisterType<DataLakeConsumer>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<DataLakeConsumer>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<StreamingOrderConsumer>().AsSelf().InstancePerLifetimeScope();
         }
 

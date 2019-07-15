@@ -7,6 +7,7 @@ using System.Threading;
 using Microsoft.Azure.DataLake.Store;
 using System.Text;
 using Newtonsoft.Json;
+using Nop.Core.Domain.Customers;
 
 namespace Nop.Plugin.Misc.DataMesh.Infrastructure
 {
@@ -30,10 +31,13 @@ namespace Nop.Plugin.Misc.DataMesh.Infrastructure
 
                 using (var stream = client.CreateFile(fileName, IfExists.Overwrite))
                 {
-                    var json = JsonConvert.SerializeObject(eventMessage.Order, new JsonSerializerSettings()
+                    Order order = eventMessage.Order;
+                    Customer customer = order.Customer;
+                    var simplifiedOrder = new SimplifiedOrderData(order.OrderGuid.ToString(), "NopOrder", customer.Id.ToString(), customer.SystemName);
+
+                    var json = JsonConvert.SerializeObject(simplifiedOrder, new JsonSerializerSettings()
                     {
                         Formatting = Formatting.Indented,
-
                     });
 
                     var fileToWrite = Encoding.UTF8.GetBytes(json);
